@@ -1,0 +1,35 @@
+{
+    "Description": "Allowed location to Australia only",
+    "mode": "Indexed",
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "location",
+            "notIn": "[parameters('allowedLocations')]"
+          },
+          {
+            "field": "location",
+            "notEquals": "global"
+          },
+          {
+            "field": "type",
+            "notEquals": "Microsoft.AzureActiveDirectory/b2cDirectories"
+          }
+        ]
+      },
+      "then": {
+        "effect": "Deny"
+      }
+    },
+    "parameters": {
+      "allowedLocations": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Allowed locations",
+          "description": "The list of locations that can be specified when deploying resources.",
+          "strongType": "location"
+        }
+      }
+    }
+  }
