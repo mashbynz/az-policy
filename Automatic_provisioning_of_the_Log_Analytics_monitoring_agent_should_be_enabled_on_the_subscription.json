@@ -1,0 +1,34 @@
+{
+    "Description": "Enable automatic provisioning of the Log Analytics monitoring agent in order to collect security data.",
+    "mode": "All",
+    "policyRule": {
+      "if": {
+        "field": "type",
+        "equals": "Microsoft.Resources/subscriptions"
+      },
+      "then": {
+        "effect": "[parameters('effect')]",
+        "details": {
+          "type": "Microsoft.Security/autoProvisioningSettings",
+          "existenceCondition": {
+            "field": "Microsoft.Security/autoProvisioningSettings/autoProvision",
+            "equals": "On"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "AuditIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "AuditIfNotExists"
+      }
+    }
+  }
